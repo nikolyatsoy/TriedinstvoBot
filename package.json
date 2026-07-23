@@ -1,0 +1,33 @@
+{
+  "name": "trinity-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Telegram Mini App: диагностика Триединства (Тело-Разум-Дух) с прикладными советами",
+  "workspaces": [
+    "packages/shared",
+    "packages/server",
+    "packages/bot",
+    "packages/webapp"
+  ],
+  "scripts": {
+    "build:shared": "npm run build -w packages/shared",
+    "build:server": "npm run build -w packages/server",
+    "build:webapp": "npm run build -w packages/webapp",
+    "build": "npm run build:shared && npm run build:webapp && npm run build:server",
+    "dev:server": "npm run dev -w packages/server",
+    "dev:bot": "npm run dev -w packages/bot",
+    "dev:webapp": "npm run dev -w packages/webapp",
+    "dev": "npm run build:shared && concurrently -k -n server,bot,webapp -c blue,green,magenta \"npm:dev:server\" \"npm:dev:bot\" \"npm:dev:webapp\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "esbuild@0.21.5": true
+  }
+}
